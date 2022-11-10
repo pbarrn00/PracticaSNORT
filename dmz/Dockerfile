@@ -1,6 +1,24 @@
-FROM ubuntu:18.04
+FROM balenalib/raspberry-pi:buster
 
-RUN apt-get update && apt-get install -y  openssh-server net-tools iputils-ping traceroute vim iptables iptables-dev pkg-config tcpdump nmap
+RUN apt upgrade
+
+RUN apt update && apt-get install -y curl openssh-server nano net-tools iputils-ping traceroute iptables iptables-dev pkg-config tcpdump nmap cargo git gcc musl-dev python3-dev python3-virtualenv libssl-dev libffi-dev build-essential libpython3-dev python3-minimal authbind virtualenv
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+RUN useradd -m -d /home/cowrie -s /bin/bash cowrie
+
+RUN su - cowrie && cd /home/cowrie && git clone http://github.com/cowrie/cowrie
+
+#COPY ./requirements.txt /home/cowrie/cowrie/requirements.txt
+#COPY ./cowrie.cfg /home/cowrie/cowrie/etc/cowrie.cfg
+#COPY ./userdb.txt /home/cowrie/cowrie/etc/userdb.txt
+
+RUN cd /home/cowrie/cowrie && virtualenv --python=python3 cowrie-env && . cowrie-env/bin/activate && pip install --upgrade pip  && pip install --upgrade -r requirements.txt
+
+RUN chown -R cowrie:cowrie /home/cowrie
+
+RUN /home/cowrie/cowrie/bin/cowrie start
 
 RUN mkdir /var/run/sshd
 

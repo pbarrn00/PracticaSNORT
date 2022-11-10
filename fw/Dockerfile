@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 RUN apt-get update 
 
-RUN apt-get install -y net-tools openssh-server iputils-ping traceroute vim iptables iptables-dev pkg-config autoconf
+RUN apt-get install -y net-tools nano openssh-server iputils-ping traceroute vim iptables iptables-dev pkg-config autoconf
 
 # Github repo for Snort (https://github.com/mosesrenegade/snort3-docker/blob/master/Dockerfile)
 RUN mkdir /var/run/sshd
@@ -74,6 +74,14 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN sysctl net.ipv4.conf.all.forwarding=1 
 
 COPY ./start.sh .
+
+COPY ./snort.lua /usr/local/etc/snort/
+
+COPY ./snort3-community-rules/snort3-community.rules /usr/local/etc/rules/
+
+RUN sed -i 's/# alert/alert/g' /usr/local/etc/rules/snort3-community.rules
+
+RUN sed -i '/$AIM_SERVERS/d' /usr/local/etc/rules/snort3-community.rules
 
 RUN chmod +x start.sh
 
