@@ -1,10 +1,8 @@
-FROM balenalib/raspberry-pi:buster
+FROM ubuntu:22.04
 
 RUN apt upgrade
 
-RUN apt update && apt-get install -y curl openssh-server nano net-tools iputils-ping traceroute iptables iptables-dev pkg-config tcpdump nmap cargo git gcc musl-dev python3-dev python3-virtualenv libssl-dev libffi-dev build-essential libpython3-dev python3-minimal authbind virtualenv
-
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN apt update && apt-get install -y curl openssh-server nano net-tools iputils-ping traceroute iptables pkg-config tcpdump nmap cargo git gcc musl-dev python3-dev python3-virtualenv libssl-dev libffi-dev build-essential libpython3-dev python3-minimal authbind virtualenv
 
 RUN useradd -m -d /home/cowrie -s /bin/bash cowrie
 
@@ -18,7 +16,7 @@ RUN cd /home/cowrie/cowrie && virtualenv --python=python3 cowrie-env && . cowrie
 
 RUN chown -R cowrie:cowrie /home/cowrie
 
-RUN /home/cowrie/cowrie/bin/cowrie start
+# RUN /home/cowrie/cowrie/bin/cowrie start
 
 RUN mkdir /var/run/sshd
 
