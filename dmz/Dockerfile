@@ -6,17 +6,19 @@ RUN apt update && apt-get install -y curl openssh-server nano net-tools iputils-
 
 RUN useradd -m -d /home/cowrie -s /bin/bash cowrie
 
+RUN sed -i 's/^#Port 22/Port 50/' /etc/ssh/sshd_config
+
 RUN su - cowrie && cd /home/cowrie && git clone http://github.com/cowrie/cowrie
 
 #COPY ./requirements.txt /home/cowrie/cowrie/requirements.txt
-#COPY ./cowrie.cfg /home/cowrie/cowrie/etc/cowrie.cfg
-#COPY ./userdb.txt /home/cowrie/cowrie/etc/userdb.txt
+#ADD ./cowrie.cfg /home/cowrie/cowrie/etc/cowrie.cfg
+#ADD ./userdb /home/cowrie/cowrie/etc/userdb.txt
 
 RUN cd /home/cowrie/cowrie && virtualenv --python=python3 cowrie-env && . cowrie-env/bin/activate && pip install --upgrade pip  && pip install --upgrade -r requirements.txt
 
 RUN chown -R cowrie:cowrie /home/cowrie
 
-# RUN /home/cowrie/cowrie/bin/cowrie start
+#RUN su cowrie && /home/cowrie/cowrie/bin/cowrie start
 
 RUN mkdir /var/run/sshd
 
