@@ -94,7 +94,7 @@ snort -c /usr/local/etc/snort/snort.lua -R /usr/local/etc/rules/snort3-community
 
 
 * **Pablo Javier Barrio Navarro** - *Realización de la Práctica SNORT* - [Pablo Javier Barrio Navarro](https://github.com/pbarrn00) 
-* **Ángel Manuel Herrero Higueras** - *Propuesta de la Práctica SNORT* - [Ángel Manuel Herrero Higueras](https://www.researchgate.net/profile/Angel-Guerrero-Higueras)
+* **Ángel Manuel Guerrero Higueras** - *Propuesta de la Práctica SNORT* - [Ángel Manuel Guerrero Higueras](https://www.researchgate.net/profile/Angel-Guerrero-Higueras)
 
 ## _My Social Media_ 🔗
 
