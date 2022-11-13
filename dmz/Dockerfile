@@ -10,7 +10,6 @@ RUN sed -i 's/^#Port 22/Port 50/' /etc/ssh/sshd_config
 
 RUN su - cowrie && cd /home/cowrie && git clone http://github.com/cowrie/cowrie
 
-#COPY ./requirements.txt /home/cowrie/cowrie/requirements.txt
 ADD ./cowrie.cfg /home/cowrie/cowrie/etc/cowrie.cfg
 ADD ./userdb.txt /home/cowrie/cowrie/etc/userdb.txt
 
