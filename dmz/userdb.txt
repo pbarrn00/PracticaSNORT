@@ -8,12 +8,14 @@
 # '!' at the start of a password will not grant this password access
 # '/' can be used to write a regular expression
 #
+
+# Practice Configuration
+pablo:x:1234
+# Configuration used in Honeynets TFG
 root:x:!root
 root:x:!123456
 root:x:!/honeypot/i
 root:x:*
-tomcat:x:*
+tomcat:x:apache
 oracle:x:*
 *:x:somepassword
-# Entra si o si
-*:x:*
